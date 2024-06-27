@@ -64,28 +64,6 @@ class HomeController extends Controller
      */
     public function show(Home $home)
     {
-        $request->validate([
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $image = $request->file('gambar');
-
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-
-        $image->move('uploads', $imageName);
-
-        // create new manager instance with desired driver and default configuration
-        $imgManager = new ImageManager(Driver::class);
-
-        // create new image instance
-        $thumbImage = $imgManager->read('uploads/' . $imageName);
-
-        // resize to 300 x 200 pixel
-        $thumbImage->resize(150, 150);
-
-        $thumbImage->save(public_path('uploads/thumbnails/' . $imageName));
-
-        // dd($imageName, $request->gambar);
     }
 
     /**
